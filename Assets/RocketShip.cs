@@ -9,7 +9,7 @@ public class RocketShip : MonoBehaviour
     Rigidbody rigidBody;
     AudioSource audioSource;
     [SerializeField] float rocketThrust = 100f;
-    [SerializeField] float mainThrust = 8f;
+    [SerializeField] float mainThrust = 6.5f;
     float rotationSpeed;
 
     void Start()
@@ -23,6 +23,25 @@ public class RocketShip : MonoBehaviour
         Thrust();
         Rotate();
 	}
+
+
+    void OnCollisionEnter(Collision collision)
+    {
+        switch(collision.gameObject.tag)
+        {
+          case "Friendly":
+            print("OK");
+            break;
+
+          case "Threat":
+            print("Dead");
+            break;
+
+          case "Finish":
+            print("Goal");
+            break;
+        }
+    }
 
     private void Thrust()
     {
@@ -43,11 +62,11 @@ public class RocketShip : MonoBehaviour
       rigidBody.freezeRotation = true;
 
         rotationSpeed = rocketThrust * Time.deltaTime;
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.A))
         {
             transform.Rotate(Vector3.forward * rotationSpeed);
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.D))
         {
             transform.Rotate(-Vector3.forward * rotationSpeed);
         }

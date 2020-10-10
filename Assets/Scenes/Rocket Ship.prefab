@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rocketThrust: 100
+  mainThrust: 5
 --- !u!82 &1575616000685036174
 AudioSource:
   m_ObjectHideFlags: 0
@@ -223,7 +224,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b1b12db1deb151f4dabc6501a98b6550, type: 2}
+  - {fileID: 2100000, guid: 71add58118094004e881c09787f05e36, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -316,7 +317,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b1b12db1deb151f4dabc6501a98b6550, type: 2}
+  - {fileID: 2100000, guid: 71add58118094004e881c09787f05e36, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -502,7 +503,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b1b12db1deb151f4dabc6501a98b6550, type: 2}
+  - {fileID: 2100000, guid: 71add58118094004e881c09787f05e36, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -595,7 +596,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b1b12db1deb151f4dabc6501a98b6550, type: 2}
+  - {fileID: 2100000, guid: 71add58118094004e881c09787f05e36, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
