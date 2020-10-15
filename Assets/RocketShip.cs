@@ -7,6 +7,8 @@ public class RocketShip : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] float rocketThrust = 100f;
     [SerializeField] float mainThrust = 6.5f;
+    [SerializeField] float levelLoadDelay = 2f;
+
     [SerializeField] AudioClip mainEngine;
     [SerializeField] AudioClip success;
     [SerializeField] AudioClip death;
@@ -63,7 +65,7 @@ public class RocketShip : MonoBehaviour
         audioSource.Stop();
         audioSource.PlayOneShot(success);
         successParticles.Play();
-        Invoke("LoadNextScene", 1f); // parameterise time
+        Invoke("LoadNextScene", levelLoadDelay); // parameterise time
     }
 
     private void StartDeathSequence()
@@ -72,7 +74,7 @@ public class RocketShip : MonoBehaviour
         audioSource.Stop();
         audioSource.PlayOneShot(death);
         deathParticles.Play();
-        Invoke("LoadFirstScene", 1f); // parameterise time
+        Invoke("LoadFirstScene", levelLoadDelay); // parameterise time
     }
 
     private void LoadNextScene(){
