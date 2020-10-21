@@ -21,28 +21,47 @@ public class RocketShip : MonoBehaviour
     AudioSource audioSource;
 
     float rotationSpeed;
-    enum State { Alive, Dying, Transcending }
-    State state;
+    bool isAlive = true;
+
+    bool collisionsDisabled = false;
 
     void Start()
     {
-        state = State.Alive;
         rigidBody = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
+        audioSource.volume = 0.8f;
     }
 
     // Update is called once per frame
     void Update () {
-      if (state == State.Alive){
+      if (isAlive){
         RespondToThrustInput();
         RespondToRotateInput();
       }
+
+      if (Debug.isDebugBuild)
+        {
+            RespondToDebugKeys();
+        }
 	}
 
 
+
+  private void RespondToDebugKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextLevel();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            collisionsDisabled = !collisionsDisabled; // toggle
+        }
+    }
+
     void OnCollisionEnter(Collision collision)
     {
-        if (state != State.Alive){ return; }
+        if (!isAlive){ return; }
         switch(collision.gameObject.tag)
         {
           case "Friendly":
@@ -50,39 +69,49 @@ public class RocketShip : MonoBehaviour
             break;
 
           case "Finish":
+            audioSource.volume = 0.1f;
             StartSuccessSequence();
             break;
 
           default:
+            audioSource.volume = 0.1f;
             StartDeathSequence();
             break;
         }
     }
     private void StartSuccessSequence()
     {
-        print("bey");
-        state = State.Transcending;
+        isAlive = !isAlive;
         audioSource.Stop();
         audioSource.PlayOneShot(success);
         successParticles.Play();
-        Invoke("LoadNextScene", levelLoadDelay); // parameterise time
+        Invoke("LoadNextLevel", levelLoadDelay); // parameterise time
     }
 
     private void StartDeathSequence()
     {
-        state = State.Dying;
+        isAlive = !isAlive;
         audioSource.Stop();
+
         audioSource.PlayOneShot(death);
         deathParticles.Play();
-        Invoke("LoadFirstScene", levelLoadDelay); // parameterise time
+        Invoke("LoadFirstLevel", levelLoadDelay); // parameterise time
     }
 
-    private void LoadNextScene(){
-      SceneManager.LoadScene(1);
+    private void LoadNextLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+        if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
+        {
+            nextSceneIndex = 0; // loop back to start
+        }
+        SceneManager.LoadScene(nextSceneIndex);
     }
 
-    private void LoadFirstScene(){
-      SceneManager.LoadScene(0);
+    private void LoadFirstLevel()
+    {
+        SceneManager.LoadScene(0);
     }
 
     private void RespondToThrustInput()
