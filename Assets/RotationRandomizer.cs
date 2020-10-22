@@ -5,18 +5,23 @@ using UnityEngine;
 public class RotationRandomizer : MonoBehaviour
 {
     // Start is called before the first frame update
-    Vector3 euler;
+    float degree;
 
     void Start()
     {
-      euler = transform.eulerAngles;
-      euler.y = Random.Range(0f, 360f);
-      transform.eulerAngles = euler;
+
+      degree = Random.Range(0f, 360f);
+
+      transform.Rotate(0f,degree,0f,Space.Self);
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
+        // Smoothly tilts a transform towards a target rotation.
+
 
     }
 }
